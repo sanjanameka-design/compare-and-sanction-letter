@@ -90,16 +90,6 @@ const Index = () => {
       <main className="container max-w-6xl py-10 md:py-14">
         {stage === 'compare' && (
           <div className="animate-fade-in">
-            {/* Loan Type Selector */}
-            <section className="mb-10">
-              <h2 className="font-display text-2xl font-bold text-center mb-6">
-                Select Loan Type
-              </h2>
-              <LoanTypeSelector
-                selectedType={selectedLoanType}
-                onSelect={setSelectedLoanType}
-              />
-            </section>
 
             {/* View Toggle & Selection Info */}
             <section className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">

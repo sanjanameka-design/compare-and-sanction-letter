@@ -115,10 +115,10 @@ export const ComparisonTable = ({ lenders, selectedLenders, onSelectLender }: Co
                   </div>
                 </div>
               </td>
-              <td className="px-4 py-4 font-semibold">₹{(lender.maxSanctionAmount / 100000).toFixed(0)}L</td>
-              <td className="px-4 py-4 font-semibold">{lender.trueAPR}%</td>
+              <td className="px-4 py-4 font-semibold">Up to ₹{(lender.maxSanctionAmount / 100000).toFixed(0)}L</td>
+              <td className="px-4 py-4 font-semibold">{lender.trueAPR}% – {lender.trueAPRMax}%</td>
               <td className="px-4 py-4">{lender.tenureOptions}</td>
-              <td className="px-4 py-4">{lender.processingFee}</td>
+              <td className="px-4 py-4">{lender.processingFeeMin}% – {lender.processingFeeMax}%</td>
               <td className={cn('px-4 py-4', getApprovalColor(lender.approvalProbability))}>
                 {lender.approvalProbability}%
               </td>
