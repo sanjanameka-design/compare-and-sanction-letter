@@ -63,10 +63,10 @@ export const LenderCard = ({ lender, isSelected, onSelect, disabled }: LenderCar
         <div className="bg-secondary/50 rounded-lg p-3">
           <div className="flex items-center gap-1.5 text-muted-foreground text-xs mb-1">
             <CreditCard className="w-3.5 h-3.5" />
-            Max Amount
+            Est. Sanction
           </div>
           <div className="font-semibold text-foreground">
-            ₹{(lender.maxSanctionAmount / 100000).toFixed(0)}L
+            Up to ₹{(lender.maxSanctionAmount / 100000).toFixed(0)}L
           </div>
         </div>
         <div className="bg-secondary/50 rounded-lg p-3">
@@ -74,7 +74,7 @@ export const LenderCard = ({ lender, isSelected, onSelect, disabled }: LenderCar
             <Percent className="w-3.5 h-3.5" />
             True APR
           </div>
-          <div className="font-semibold text-foreground">{lender.trueAPR}%</div>
+          <div className="font-semibold text-foreground">{lender.trueAPR}% – {lender.trueAPRMax}%</div>
         </div>
       </div>
 
@@ -92,7 +92,7 @@ export const LenderCard = ({ lender, isSelected, onSelect, disabled }: LenderCar
             <AlertCircle className="w-3.5 h-3.5" />
             Processing Fee
           </span>
-          <span className="font-medium">{lender.processingFee}</span>
+          <span className="font-medium">{lender.processingFeeMin}% – {lender.processingFeeMax}%</span>
         </div>
         <div className="flex items-center justify-between">
           <span className="flex items-center gap-1.5 text-muted-foreground">

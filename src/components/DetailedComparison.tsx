@@ -86,12 +86,12 @@ export const DetailedComparison = ({ lender1, lender2, onSelectForLetter }: Deta
             
             <div className="grid grid-cols-2 gap-3 mb-4">
               <div className="bg-secondary/50 rounded-lg p-3 text-center">
-                <div className="text-xs text-muted-foreground mb-1">Max Amount</div>
-                <div className="font-bold text-lg">₹{(lender.maxSanctionAmount / 100000).toFixed(0)}L</div>
+                <div className="text-xs text-muted-foreground mb-1">Est. Sanction</div>
+                <div className="font-bold text-lg">Up to ₹{(lender.maxSanctionAmount / 100000).toFixed(0)}L</div>
               </div>
               <div className="bg-secondary/50 rounded-lg p-3 text-center">
                 <div className="text-xs text-muted-foreground mb-1">True APR</div>
-                <div className="font-bold text-lg">{lender.trueAPR}%</div>
+                <div className="font-bold text-lg">{lender.trueAPR}% – {lender.trueAPRMax}%</div>
               </div>
               <div className="bg-secondary/50 rounded-lg p-3 text-center">
                 <div className="text-xs text-muted-foreground mb-1">Approval</div>

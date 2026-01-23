@@ -145,10 +145,10 @@ export const PreSanctionLetter = ({ lender, loanType, onBack }: PreSanctionLette
               <div className="bg-gradient-to-br from-approval-light to-white rounded-xl p-4 border border-approval/20">
                 <div className="flex items-center gap-2 mb-2">
                   <IndianRupee className="w-4 h-4 text-approval" />
-                  <p className="text-xs text-muted-foreground">Estimated Amount</p>
+                  <p className="text-xs text-muted-foreground">Est. Sanction Amount</p>
                 </div>
                 <p className="font-display text-xl font-bold text-approval">
-                  ₹{(estimatedAmount / 100000).toFixed(2)}L
+                  Up to ₹{(estimatedAmount / 100000).toFixed(2)}L
                 </p>
               </div>
               
@@ -157,7 +157,7 @@ export const PreSanctionLetter = ({ lender, loanType, onBack }: PreSanctionLette
                   <Percent className="w-4 h-4 text-primary" />
                   <p className="text-xs text-muted-foreground">Interest Rate (APR)</p>
                 </div>
-                <p className="font-bold text-lg">{lender.trueAPR}% p.a.</p>
+                <p className="font-bold text-lg">{lender.trueAPR}% – {lender.trueAPRMax}%</p>
               </div>
               
               <div className="bg-secondary/50 rounded-xl p-4 border border-border">
@@ -173,7 +173,7 @@ export const PreSanctionLetter = ({ lender, loanType, onBack }: PreSanctionLette
                   <Receipt className="w-4 h-4 text-primary" />
                   <p className="text-xs text-muted-foreground">Processing Fee</p>
                 </div>
-                <p className="font-bold text-lg">{lender.processingFee}</p>
+                <p className="font-bold text-lg">{lender.processingFeeMin}% – {lender.processingFeeMax}%</p>
               </div>
               
               <div className="bg-secondary/50 rounded-xl p-4 border border-border">
@@ -195,7 +195,7 @@ export const PreSanctionLetter = ({ lender, loanType, onBack }: PreSanctionLette
               <div className="bg-gradient-to-br from-gold-light to-white rounded-xl p-4 border border-gold/20 col-span-2 md:col-span-1">
                 <div className="flex items-center gap-2 mb-2">
                   <Wallet className="w-4 h-4 text-gold" />
-                  <p className="text-xs text-muted-foreground">EMI Estimate</p>
+                  <p className="text-xs text-muted-foreground">Estimated EMI</p>
                 </div>
                 <p className="font-display text-xl font-bold text-gold">
                   ₹{emi.toLocaleString('en-IN')}/mo
@@ -222,7 +222,7 @@ export const PreSanctionLetter = ({ lender, loanType, onBack }: PreSanctionLette
               <div className="space-y-3">
                 <div className="flex justify-between items-center py-2 border-b border-dashed border-navy/10">
                   <span className="text-sm text-muted-foreground">Annual Percentage Rate (APR)</span>
-                  <span className="font-bold text-navy">{lender.trueAPR}%</span>
+                  <span className="font-bold text-navy">{lender.trueAPR}% – {lender.trueAPRMax}%</span>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b border-dashed border-navy/10">
                   <span className="text-sm text-muted-foreground">Total Cost of Credit</span>
@@ -258,10 +258,12 @@ export const PreSanctionLetter = ({ lender, loanType, onBack }: PreSanctionLette
               </div>
             </div>
             
-            <p className="text-xs text-muted-foreground mt-4 italic">
-              <Info className="w-3 h-3 inline mr-1" />
-              Total Cost of Credit includes interest charges + processing fees + insurance + third-party charges over the loan tenure.
-            </p>
+            <div className="mt-4 p-3 bg-navy/5 rounded-lg border border-navy/10">
+              <p className="text-sm font-semibold text-navy">
+                <Info className="w-4 h-4 inline mr-2" />
+                Total cost of credit includes interest, processing fees, insurance charges, and any third-party charges.
+              </p>
+            </div>
           </div>
 
           {/* Cooling-Off Period Section */}
@@ -275,9 +277,8 @@ export const PreSanctionLetter = ({ lender, loanType, onBack }: PreSanctionLette
                   Cooling-Off / Look-Up Period
                 </h4>
                 <p className="text-sm text-amber-700 dark:text-amber-400 mb-4">
-                  As per RBI guidelines, borrowers are entitled to a mandatory cooling-off period of at least 
-                  <strong> 1 day</strong>, during which they can exit the loan by repaying the principal plus 
-                  proportionate APR without prepayment penalty or charges.
+                  As per RBI guidelines, borrowers shall have a <strong>7-day cooling-off period</strong> to exit the loan 
+                  by repaying principal plus proportionate APR without penalty.
                 </p>
                 <Button 
                   variant="outline" 
@@ -323,7 +324,7 @@ export const PreSanctionLetter = ({ lender, loanType, onBack }: PreSanctionLette
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground mt-2 flex-shrink-0" />
-                This pre-sanction letter is valid for 30 days from the date of issue
+                Borrowers shall have a 7-day cooling-off period to exit the loan by repaying principal plus proportionate APR without penalty
               </li>
             </ul>
           </div>
