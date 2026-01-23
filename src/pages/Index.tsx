@@ -231,7 +231,7 @@ const Index = () => {
       <footer className="bg-navy text-primary-foreground/70 py-10">
         <div className="container max-w-6xl text-center">
           <p className="text-sm">
-            © 2026 LoanCompare. All loan offers are subject to lender terms and conditions.
+            © 2026 Happirate. All loan offers are subject to lender terms and conditions.
           </p>
         </div>
       </footer>
