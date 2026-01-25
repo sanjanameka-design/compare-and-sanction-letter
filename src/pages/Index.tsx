@@ -1,22 +1,24 @@
 import { useState } from 'react';
 import { lenders, Lender } from '@/data/lenders';
-import { LoanTypeSelector } from '@/components/LoanTypeSelector';
 import { LenderCard } from '@/components/LenderCard';
 import { ComparisonTable } from '@/components/ComparisonTable';
 import { DetailedComparison } from '@/components/DetailedComparison';
 import { PreSanctionLetter } from '@/components/PreSanctionLetter';
+import { ProvisionalSanctionLetter } from '@/components/ProvisionalSanctionLetter';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { LayoutGrid, Table, ArrowRight, X, Shield, Zap, Award } from 'lucide-react';
+import { LayoutGrid, Table, ArrowRight, X, Shield, Zap, Award, FileText, GitCompare } from 'lucide-react';
 
 type ViewMode = 'grid' | 'table';
-type Stage = 'compare' | 'detailed' | 'letter';
+type Stage = 'compare' | 'detailed' | 'letter' | 'psl';
+type MainTab = 'compare' | 'psl';
 
 const Index = () => {
   const [selectedLoanType, setSelectedLoanType] = useState('personal');
   const [selectedLenders, setSelectedLenders] = useState<string[]>([]);
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
   const [stage, setStage] = useState<Stage>('compare');
+  const [mainTab, setMainTab] = useState<MainTab>('compare');
   const [selectedForLetter, setSelectedForLetter] = useState<Lender | null>(null);
 
   const handleSelectLender = (id: string) => {
@@ -38,6 +40,11 @@ const Index = () => {
     setStage('letter');
   };
 
+  const handleApplyNow = (lender: Lender) => {
+    setSelectedForLetter(lender);
+    setStage('letter');
+  };
+
   const handleBackToCompare = () => {
     setStage('compare');
     setSelectedForLetter(null);
@@ -46,6 +53,14 @@ const Index = () => {
   const handleBackToDetailed = () => {
     setStage('detailed');
     setSelectedForLetter(null);
+  };
+
+  const handleOpenPSL = () => {
+    setStage('psl');
+  };
+
+  const handleClosePSL = () => {
+    setStage('compare');
   };
 
   const selectedLenderObjects = lenders.filter((l) => selectedLenders.includes(l.id));
@@ -88,6 +103,38 @@ const Index = () => {
 
       {/* Main Content */}
       <main className="container max-w-6xl py-10 md:py-14">
+        {/* Main Tabs - Only show when not in detailed/letter views */}
+        {(stage === 'compare' || stage === 'psl') && (
+          <div className="flex justify-center mb-8">
+            <div className="flex bg-secondary rounded-xl p-1.5 gap-1">
+              <button
+                onClick={() => setStage('compare')}
+                className={cn(
+                  'flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold transition-all',
+                  stage === 'compare'
+                    ? 'bg-card shadow-md text-foreground'
+                    : 'text-muted-foreground hover:text-foreground'
+                )}
+              >
+                <GitCompare className="w-4 h-4" />
+                Compare Lenders
+              </button>
+              <button
+                onClick={handleOpenPSL}
+                className={cn(
+                  'flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold transition-all',
+                  stage === 'psl'
+                    ? 'bg-card shadow-md text-foreground'
+                    : 'text-muted-foreground hover:text-foreground'
+                )}
+              >
+                <FileText className="w-4 h-4" />
+                Provisional Sanction Letter
+              </button>
+            </div>
+          </div>
+        )}
+
         {stage === 'compare' && (
           <div className="animate-fade-in">
 
@@ -172,6 +219,7 @@ const Index = () => {
                       selectedLenders.length >= 2 &&
                       !selectedLenders.includes(lender.id)
                     }
+                    onApplyNow={handleApplyNow}
                   />
                 ))}
               </div>
@@ -181,15 +229,23 @@ const Index = () => {
                   lenders={lenders}
                   selectedLenders={selectedLenders}
                   onSelectLender={handleSelectLender}
+                  onApplyNow={handleApplyNow}
                 />
               </div>
             )}
 
             {/* Help Text */}
             <p className="text-center text-muted-foreground text-sm mt-8">
-              Select any 2 lenders to see a detailed side-by-side comparison
+              Select any 2 lenders to compare, or click "Apply Now" to get a pre-sanction letter directly
             </p>
           </div>
+        )}
+
+        {stage === 'psl' && (
+          <ProvisionalSanctionLetter
+            onClose={handleClosePSL}
+            onApplyNow={handleApplyNow}
+          />
         )}
 
         {stage === 'detailed' && selectedLenderObjects.length === 2 && (
@@ -212,7 +268,7 @@ const Index = () => {
           <PreSanctionLetter
             lender={selectedForLetter}
             loanType={selectedLoanType}
-            onBack={handleBackToDetailed}
+            onBack={handleBackToCompare}
           />
         )}
       </main>
