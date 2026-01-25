@@ -1,14 +1,16 @@
 import { Lender } from '@/data/lenders';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 import { Check, TrendingUp, Clock, CreditCard, Percent, Calendar, AlertCircle, Banknote } from 'lucide-react';
 
 interface ComparisonTableProps {
   lenders: Lender[];
   selectedLenders: string[];
   onSelectLender: (id: string) => void;
+  onApplyNow?: (lender: Lender) => void;
 }
 
-export const ComparisonTable = ({ lenders, selectedLenders, onSelectLender }: ComparisonTableProps) => {
+export const ComparisonTable = ({ lenders, selectedLenders, onSelectLender, onApplyNow }: ComparisonTableProps) => {
   const isDisabled = (id: string) => selectedLenders.length >= 2 && !selectedLenders.includes(id);
 
   const getApprovalColor = (probability: number) => {
@@ -65,11 +67,14 @@ export const ComparisonTable = ({ lenders, selectedLenders, onSelectLender }: Co
                 Pre-Payment
               </div>
             </th>
-            <th className="px-4 py-4 text-left font-semibold rounded-tr-xl">
+            <th className="px-4 py-4 text-left font-semibold">
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4" />
                 Disbursal
               </div>
+            </th>
+            <th className="px-4 py-4 text-left font-semibold rounded-tr-xl">
+              Action
             </th>
           </tr>
         </thead>
@@ -124,6 +129,20 @@ export const ComparisonTable = ({ lenders, selectedLenders, onSelectLender }: Co
               </td>
               <td className="px-4 py-4 text-sm">{lender.prepaymentCharges}</td>
               <td className="px-4 py-4">{lender.disbursalTime}</td>
+              <td className="px-4 py-4">
+                {onApplyNow && (
+                  <Button
+                    size="sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onApplyNow(lender);
+                    }}
+                    className="gradient-primary hover:opacity-90 text-xs"
+                  >
+                    Apply Now
+                  </Button>
+                )}
+              </td>
             </tr>
           ))}
         </tbody>

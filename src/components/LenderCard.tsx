@@ -1,5 +1,6 @@
 import { Lender } from '@/data/lenders';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 import { Check, Clock, Percent, CreditCard, TrendingUp, Calendar, AlertCircle } from 'lucide-react';
 
 interface LenderCardProps {
@@ -7,9 +8,10 @@ interface LenderCardProps {
   isSelected: boolean;
   onSelect: (id: string) => void;
   disabled: boolean;
+  onApplyNow?: (lender: Lender) => void;
 }
 
-export const LenderCard = ({ lender, isSelected, onSelect, disabled }: LenderCardProps) => {
+export const LenderCard = ({ lender, isSelected, onSelect, disabled, onApplyNow }: LenderCardProps) => {
   const getApprovalColor = (probability: number) => {
     if (probability >= 90) return 'text-approval';
     if (probability >= 80) return 'text-trust';
@@ -112,11 +114,23 @@ export const LenderCard = ({ lender, isSelected, onSelect, disabled }: LenderCar
         </div>
       </div>
 
-      {/* Approval Badge */}
-      <div className="mt-4 pt-3 border-t border-border">
+      {/* Footer with Badge and Apply Now */}
+      <div className="mt-4 pt-3 border-t border-border flex items-center justify-between">
         <span className={getApprovalBadge(lender.approvalProbability)}>
           {lender.approvalProbability >= 90 ? 'High Approval' : lender.approvalProbability >= 80 ? 'Good Match' : 'Fair Match'}
         </span>
+        {onApplyNow && (
+          <Button
+            size="sm"
+            onClick={(e) => {
+              e.stopPropagation();
+              onApplyNow(lender);
+            }}
+            className="gradient-primary hover:opacity-90 text-xs"
+          >
+            Apply Now
+          </Button>
+        )}
       </div>
     </div>
   );
