@@ -346,6 +346,13 @@ export const PreSanctionLetter = ({ lender, loanType, onBack }: PreSanctionLette
                 <Download className="w-5 h-5 mr-2" />
                 Download PDF
               </Button>
+              <Button 
+                variant="secondary" 
+                className="flex-1 h-12 text-base"
+              >
+                <Clock className="w-5 h-5 mr-2" />
+                Re-assess Later (7 days)
+              </Button>
             </div>
           </div>
         </CardContent>

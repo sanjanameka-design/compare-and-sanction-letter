@@ -4,7 +4,7 @@ import { LenderCard } from '@/components/LenderCard';
 import { ComparisonTable } from '@/components/ComparisonTable';
 import { DetailedComparison } from '@/components/DetailedComparison';
 import { PreSanctionLetter } from '@/components/PreSanctionLetter';
-import { ProvisionalSanctionLetter } from '@/components/ProvisionalSanctionLetter';
+import { ProvisionalOfferLetter } from '@/components/ProvisionalOfferLetter';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { LayoutGrid, Table, ArrowRight, X, Shield, Zap, Award, FileText, GitCompare } from 'lucide-react';
@@ -129,7 +129,7 @@ const Index = () => {
                 )}
               >
                 <FileText className="w-4 h-4" />
-                Provisional Sanction Letter
+                Provisional Offer Letter
               </button>
             </div>
           </div>
@@ -242,7 +242,7 @@ const Index = () => {
         )}
 
         {stage === 'psl' && (
-          <ProvisionalSanctionLetter
+          <ProvisionalOfferLetter
             onClose={handleClosePSL}
             onApplyNow={handleApplyNow}
           />
