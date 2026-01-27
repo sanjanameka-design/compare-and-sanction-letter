@@ -24,7 +24,8 @@ import {
   Receipt,
   ShieldCheck,
   Info,
-  XCircle
+  XCircle,
+  Lock
 } from 'lucide-react';
 import {
   Dialog,
@@ -32,6 +33,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogFooter,
 } from '@/components/ui/dialog';
 
 interface PreSanctionLetterProps {
@@ -42,6 +44,7 @@ interface PreSanctionLetterProps {
 
 export const PreSanctionLetter = ({ lender, loanType, onBack }: PreSanctionLetterProps) => {
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [showReassessDialog, setShowReassessDialog] = useState(false);
 
   const currentDate = new Date().toLocaleDateString('en-IN', {
     day: '2-digit',
@@ -349,6 +352,7 @@ export const PreSanctionLetter = ({ lender, loanType, onBack }: PreSanctionLette
               <Button 
                 variant="secondary" 
                 className="flex-1 h-12 text-base"
+                onClick={() => setShowReassessDialog(true)}
               >
                 <Clock className="w-5 h-5 mr-2" />
                 Re-assess Later (7 days)
@@ -409,6 +413,64 @@ export const PreSanctionLetter = ({ lender, loanType, onBack }: PreSanctionLette
           >
             Go to Loan Tracking Dashboard
           </Button>
+        </DialogContent>
+      </Dialog>
+
+      {/* Re-assess Later Dialog */}
+      <Dialog open={showReassessDialog} onOpenChange={setShowReassessDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader className="text-center">
+            <div className="mx-auto w-16 h-16 rounded-full bg-gradient-to-br from-trust/20 to-trust/10 flex items-center justify-center mb-4">
+              <Lock className="w-8 h-8 text-trust" />
+            </div>
+            <DialogTitle className="font-display text-2xl text-center">
+              Your Application is Secure
+            </DialogTitle>
+            <DialogDescription className="text-center text-base pt-2">
+              We'll save your application progress securely. You can return anytime within the next 
+              <strong className="text-foreground"> 7 days</strong> to continue with your loan application.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="bg-secondary/50 rounded-xl p-4 mt-4 space-y-3">
+            <div className="flex items-start gap-3">
+              <ShieldCheck className="w-5 h-5 text-approval mt-0.5 flex-shrink-0" />
+              <p className="text-sm text-muted-foreground">
+                Your details are encrypted and stored safely
+              </p>
+            </div>
+            <div className="flex items-start gap-3">
+              <Clock className="w-5 h-5 text-trust mt-0.5 flex-shrink-0" />
+              <p className="text-sm text-muted-foreground">
+                Application will be available for 7 days
+              </p>
+            </div>
+            <div className="flex items-start gap-3">
+              <AlertCircle className="w-5 h-5 text-warning mt-0.5 flex-shrink-0" />
+              <p className="text-sm text-muted-foreground">
+                After 7 days, your application will be automatically deleted for security
+              </p>
+            </div>
+          </div>
+          
+          <DialogFooter className="flex flex-col sm:flex-row gap-2 mt-4">
+            <Button 
+              variant="outline"
+              className="flex-1"
+              onClick={() => setShowReassessDialog(false)}
+            >
+              Continue Application
+            </Button>
+            <Button 
+              className="flex-1 bg-gradient-to-r from-trust to-navy hover:opacity-90"
+              onClick={() => {
+                setShowReassessDialog(false);
+                onBack();
+              }}
+            >
+              Save & Come Back Later
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>

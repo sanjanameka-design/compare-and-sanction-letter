@@ -51,79 +51,79 @@ export const ProvisionalOfferLetter = ({ onClose, onApplyNow }: ProvisionalOffer
         </div>
       </div>
 
-      <div className="border-t border-border pt-4">
-        {/* Application Snapshot - Compact */}
-        <div className="card-elevated p-3 mb-4">
-          <h2 className="font-display text-sm font-semibold text-trust mb-2 italic">
+      <div className="border-t border-border pt-6">
+        {/* Application Snapshot */}
+        <div className="card-elevated p-5 mb-6">
+          <h2 className="font-display text-base font-semibold text-trust mb-4 italic">
             Application Snapshot
           </h2>
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-2 text-xs">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-sm">
             <div className="flex flex-col">
-              <span className="text-muted-foreground">Date</span>
+              <span className="text-muted-foreground text-xs mb-1">Date</span>
               <span className="font-semibold">{formattedDate}</span>
             </div>
             <div className="flex flex-col">
-              <span className="text-muted-foreground">Ref ID</span>
+              <span className="text-muted-foreground text-xs mb-1">Ref ID</span>
               <span className="font-semibold text-navy truncate">{referenceId}</span>
             </div>
             <div className="flex flex-col">
-              <span className="text-muted-foreground">Borrower</span>
+              <span className="text-muted-foreground text-xs mb-1">Borrower</span>
               <span className="font-semibold">Maya Reddy</span>
             </div>
             <div className="flex flex-col">
-              <span className="text-muted-foreground">Loan Type</span>
+              <span className="text-muted-foreground text-xs mb-1">Loan Type</span>
               <span className="font-semibold">Personal</span>
             </div>
             <div className="flex flex-col">
-              <span className="text-muted-foreground">CIBIL</span>
+              <span className="text-muted-foreground text-xs mb-1">CIBIL</span>
               <span className="font-semibold text-approval">785</span>
             </div>
             <div className="flex flex-col">
-              <span className="text-muted-foreground">Requested</span>
+              <span className="text-muted-foreground text-xs mb-1">Requested</span>
               <span className="font-semibold">₹12,345 / 5Y</span>
             </div>
           </div>
         </div>
 
         {/* Eligible Offers */}
-        <div className="mb-4">
-          <h2 className="font-display text-base font-bold text-navy mb-1">
+        <div className="mb-6">
+          <h2 className="font-display text-lg font-bold text-navy mb-2">
             ELIGIBLE OFFERS ({rankedLenders.length})
           </h2>
-          <p className="text-muted-foreground text-xs mb-3">
+          <p className="text-muted-foreground text-sm mb-4">
             Ranked by approval probability based on your profile
           </p>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             {rankedLenders.map((lender, index) => (
               <div
                 key={lender.id}
                 className={cn(
-                  'card-elevated p-3 transition-all relative',
+                  'card-elevated p-5 transition-all relative',
                   index === 0 && 'ring-2 ring-approval'
                 )}
               >
                 {index === 0 && (
-                  <div className="absolute -top-2 left-3 inline-flex items-center gap-1 bg-approval text-white px-2 py-0.5 rounded-full text-[10px] font-semibold">
-                    <Award className="w-2.5 h-2.5" />
+                  <div className="absolute -top-2.5 left-4 inline-flex items-center gap-1.5 bg-approval text-white px-3 py-1 rounded-full text-xs font-semibold">
+                    <Award className="w-3 h-3" />
                     Best Match
                   </div>
                 )}
 
-                <div className="flex flex-col lg:flex-row gap-3">
+                <div className="flex flex-col lg:flex-row gap-4">
                   {/* Lender Info */}
-                  <div className="flex items-center gap-2 lg:w-40 flex-shrink-0">
+                  <div className="flex items-center gap-3 lg:w-48 flex-shrink-0">
                     <div className={cn(
-                      'w-8 h-8 rounded-lg flex items-center justify-center font-bold text-[10px]',
+                      'w-12 h-12 rounded-xl flex items-center justify-center font-bold text-sm',
                       lender.type === 'Bank' ? 'bg-navy text-primary-foreground' : 'bg-trust text-primary-foreground'
                     )}>
                       {lender.logo.slice(0, 3)}
                     </div>
                     <div className="min-w-0">
-                      <div className="text-[10px] text-muted-foreground">#{index + 1}</div>
-                      <h3 className="font-display font-bold text-xs truncate">{lender.name}</h3>
+                      <div className="text-xs text-muted-foreground">#{index + 1}</div>
+                      <h3 className="font-display font-bold text-base truncate">{lender.name}</h3>
                       <span className={cn(
-                        'text-[10px] px-1 py-0.5 rounded',
+                        'text-xs px-2 py-0.5 rounded',
                         lender.type === 'Bank' ? 'bg-navy/10 text-navy' : 'bg-trust/10 text-trust'
                       )}>
                         {lender.type}
@@ -132,100 +132,100 @@ export const ProvisionalOfferLetter = ({ onClose, onApplyNow }: ProvisionalOffer
                   </div>
 
                   {/* Key Metrics */}
-                  <div className="flex-1 grid grid-cols-4 md:grid-cols-7 gap-2 text-xs">
+                  <div className="flex-1 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 text-sm">
                     <div className="flex flex-col">
-                      <span className="text-muted-foreground text-[10px] flex items-center gap-0.5">
-                        <CreditCard className="w-2.5 h-2.5" /> Sanction
+                      <span className="text-muted-foreground text-xs flex items-center gap-1 mb-1">
+                        <CreditCard className="w-3 h-3" /> Sanction
                       </span>
-                      <span className="font-bold text-xs">Up to ₹{(lender.maxSanctionAmount / 100000).toFixed(0)}L</span>
+                      <span className="font-bold">Up to ₹{(lender.maxSanctionAmount / 100000).toFixed(0)}L</span>
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-muted-foreground text-[10px] flex items-center gap-0.5">
-                        <Percent className="w-2.5 h-2.5" /> APR
+                      <span className="text-muted-foreground text-xs flex items-center gap-1 mb-1">
+                        <Percent className="w-3 h-3" /> APR
                       </span>
-                      <span className="font-bold text-xs">{lender.trueAPR}–{lender.trueAPRMax}%</span>
+                      <span className="font-bold">{lender.trueAPR}–{lender.trueAPRMax}%</span>
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-muted-foreground text-[10px] flex items-center gap-0.5">
-                        <Calendar className="w-2.5 h-2.5" /> Tenure
+                      <span className="text-muted-foreground text-xs flex items-center gap-1 mb-1">
+                        <Calendar className="w-3 h-3" /> Tenure
                       </span>
-                      <span className="font-bold text-xs">{lender.tenureOptions}</span>
+                      <span className="font-bold">{lender.tenureOptions}</span>
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-muted-foreground text-[10px] flex items-center gap-0.5">
-                        <AlertCircle className="w-2.5 h-2.5" /> Proc. Fee
+                      <span className="text-muted-foreground text-xs flex items-center gap-1 mb-1">
+                        <AlertCircle className="w-3 h-3" /> Proc. Fee
                       </span>
-                      <span className="font-bold text-xs">{lender.processingFeeMin}–{lender.processingFeeMax}%</span>
+                      <span className="font-bold">{lender.processingFeeMin}–{lender.processingFeeMax}%</span>
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-muted-foreground text-[10px] flex items-center gap-0.5">
-                        <TrendingUp className="w-2.5 h-2.5" /> Approval
+                      <span className="text-muted-foreground text-xs flex items-center gap-1 mb-1">
+                        <TrendingUp className="w-3 h-3" /> Approval
                       </span>
-                      <span className={cn('font-bold text-xs', getApprovalColor(lender.approvalProbability))}>
+                      <span className={cn('font-bold', getApprovalColor(lender.approvalProbability))}>
                         {lender.approvalProbability}%
                       </span>
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-muted-foreground text-[10px] flex items-center gap-0.5">
-                        <Clock className="w-2.5 h-2.5" /> Disbursal
+                      <span className="text-muted-foreground text-xs flex items-center gap-1 mb-1">
+                        <Clock className="w-3 h-3" /> Disbursal
                       </span>
-                      <span className="font-bold text-xs">{lender.disbursalTime}</span>
+                      <span className="font-bold">{lender.disbursalTime}</span>
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-muted-foreground text-[10px]">Prepay</span>
-                      <span className="font-medium text-[10px] truncate">{lender.prepaymentCharges}</span>
+                      <span className="text-muted-foreground text-xs mb-1">Prepay</span>
+                      <span className="font-medium text-xs">{lender.prepaymentCharges}</span>
                     </div>
                   </div>
 
                   {/* Apply Button */}
-                  <div className="flex items-center lg:w-24 flex-shrink-0">
+                  <div className="flex items-center lg:w-28 flex-shrink-0">
                     <Button
                       onClick={() => onApplyNow(lender)}
-                      className="gradient-primary hover:opacity-90 w-full text-xs h-8"
-                      size="sm"
+                      className="gradient-primary hover:opacity-90 w-full"
+                      size="default"
                     >
                       Apply Now
                     </Button>
                   </div>
                 </div>
 
-                {/* Pros, Cons, Advantages - Compact */}
-                <div className="mt-2 pt-2 border-t border-border grid grid-cols-3 gap-2 text-[10px]">
+                {/* Pros, Cons, Advantages */}
+                <div className="mt-4 pt-4 border-t border-border grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                   <div>
-                    <span className="font-semibold text-approval flex items-center gap-0.5 mb-0.5">
-                      <CheckCircle className="w-2.5 h-2.5" /> Pros
+                    <span className="font-semibold text-approval flex items-center gap-1 mb-2">
+                      <CheckCircle className="w-4 h-4" /> Pros
                     </span>
-                    <ul className="text-muted-foreground space-y-0.5">
+                    <ul className="text-muted-foreground space-y-1.5">
                       {lender.pros.slice(0, 2).map((pro, i) => (
-                        <li key={i} className="flex items-start gap-0.5 leading-tight">
-                          <Check className="w-2.5 h-2.5 text-approval flex-shrink-0 mt-0.5" />
-                          <span className="line-clamp-1">{pro}</span>
+                        <li key={i} className="flex items-start gap-1.5 leading-snug">
+                          <Check className="w-3.5 h-3.5 text-approval flex-shrink-0 mt-0.5" />
+                          <span>{pro}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
                   <div>
-                    <span className="font-semibold text-warning flex items-center gap-0.5 mb-0.5">
-                      <AlertCircle className="w-2.5 h-2.5" /> Cons
+                    <span className="font-semibold text-warning flex items-center gap-1 mb-2">
+                      <AlertCircle className="w-4 h-4" /> Cons
                     </span>
-                    <ul className="text-muted-foreground space-y-0.5">
+                    <ul className="text-muted-foreground space-y-1.5">
                       {lender.cons.slice(0, 2).map((con, i) => (
-                        <li key={i} className="flex items-start gap-0.5 leading-tight">
-                          <X className="w-2.5 h-2.5 text-warning flex-shrink-0 mt-0.5" />
-                          <span className="line-clamp-1">{con}</span>
+                        <li key={i} className="flex items-start gap-1.5 leading-snug">
+                          <X className="w-3.5 h-3.5 text-warning flex-shrink-0 mt-0.5" />
+                          <span>{con}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
                   <div>
-                    <span className="font-semibold text-trust flex items-center gap-0.5 mb-0.5">
-                      <Award className="w-2.5 h-2.5" /> Unique
+                    <span className="font-semibold text-trust flex items-center gap-1 mb-2">
+                      <Award className="w-4 h-4" /> Unique
                     </span>
-                    <ul className="text-muted-foreground space-y-0.5">
+                    <ul className="text-muted-foreground space-y-1.5">
                       {lender.uniqueAdvantages.slice(0, 2).map((adv, i) => (
-                        <li key={i} className="flex items-start gap-0.5 leading-tight">
-                          <Award className="w-2.5 h-2.5 text-trust flex-shrink-0 mt-0.5" />
-                          <span className="line-clamp-1">{adv}</span>
+                        <li key={i} className="flex items-start gap-1.5 leading-snug">
+                          <Award className="w-3.5 h-3.5 text-trust flex-shrink-0 mt-0.5" />
+                          <span>{adv}</span>
                         </li>
                       ))}
                     </ul>
@@ -237,8 +237,8 @@ export const ProvisionalOfferLetter = ({ onClose, onApplyNow }: ProvisionalOffer
         </div>
 
         {/* Close Button */}
-        <div className="text-center py-3 border-t border-border">
-          <Button variant="ghost" onClick={onClose} className="text-muted-foreground text-sm">
+        <div className="text-center py-4 border-t border-border">
+          <Button variant="ghost" onClick={onClose} className="text-muted-foreground">
             Close Letter
           </Button>
         </div>
